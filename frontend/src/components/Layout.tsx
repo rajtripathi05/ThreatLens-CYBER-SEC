@@ -1,4 +1,4 @@
-import { BookOpenText, ChevronsLeft, ChevronsRight, FlaskConical, History, LayoutDashboard, Link2, Menu, PlayCircle, ScanSearch, ScrollText, Tags, Table2, X, type LucideIcon } from "lucide-react";
+import { BookOpenText, ChevronsLeft, ChevronsRight, ClipboardCheck, FlaskConical, History, LayoutDashboard, Link2, Menu, PlayCircle, ScanSearch, ScrollText, ShieldCheck, Tags, Table2, X, type LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Button, Tip, TooltipProvider } from "@/components/ui/primitives";
@@ -10,20 +10,22 @@ import { useApp } from "@/context/AppContext";
 import { cn } from "@/lib/utils";
 
 type NavItem = { to: string; label: string; icon: LucideIcon; end?: boolean; code: string };
-const NAV: NavItem[] = [
-  { to: "/", label: "Overview", icon: LayoutDashboard, end: true, code: "01" },
-  { to: "/analyzer", label: "Analyzer", icon: ScanSearch, code: "02" },
-  { to: "/evidence", label: "Evidence Explorer", icon: ScrollText, code: "03" },
-  { to: "/research", label: "Research Lab", icon: FlaskConical, code: "04" },
-  { to: "/incidents", label: "Incident History", icon: History, code: "05" },
-  { to: "/methodology", label: "Methodology & Data", icon: BookOpenText, code: "06" },
-];
 const CAMPAIGN_NAV: NavItem[] = [
-  { to: "/campaigns", label: "Unified Overview", icon: Tags, end: true, code: "C1" },
-  { to: "/campaigns/studio", label: "URL Studio", icon: Link2, code: "C2" },
-  { to: "/campaigns/intelligence", label: "Campaign Intelligence", icon: Table2, code: "C3" },
+  { to: "/", label: "Campaign Overview", icon: LayoutDashboard, end: true, code: "01" },
+  { to: "/campaigns/studio", label: "UTM Studio", icon: Link2, code: "02" },
+  { to: "/campaigns/intelligence", label: "Campaign Library", icon: Table2, code: "03" },
+  { to: "/campaigns/reports", label: "QA & Reports", icon: ClipboardCheck, code: "04" },
 ];
-const DEMO_NAV: NavItem = { to: "/demo", label: "Guided Demo", icon: PlayCircle, code: "▶" };
+const DEMO_NAV: NavItem = { to: "/demo", label: "Demo Workspace", icon: PlayCircle, code: "▶" };
+const SECURITY_NAV: NavItem[] = [
+  { to: "/analyzer", label: "URL Analyzer", icon: ScanSearch, code: "S1" },
+  { to: "/evidence", label: "Evidence Explorer", icon: ScrollText, code: "S2" },
+  { to: "/research", label: "Research Lab", icon: FlaskConical, code: "S3" },
+  { to: "/incidents", label: "Incident History", icon: History, code: "S4" },
+  { to: "/methodology", label: "Methodology & Data", icon: BookOpenText, code: "S5" },
+  { to: "/security", label: "Security Overview", icon: ShieldCheck, end: true, code: "S6" },
+  { to: "/security/tour", label: "Security Walkthrough", icon: Tags, code: "S7" },
+];
 
 function Mark({ className }: { className?: string }) {
   return (
@@ -44,7 +46,7 @@ function Brand({ compact }: { compact?: boolean }) {
       {!compact && (
         <div className="min-w-0 leading-none">
           <p className="font-display text-[0.95rem] font-bold tracking-[0.08em]">THREATLENS <span className="text-accent">AI</span></p>
-          <p className="mt-1 truncate font-mono text-[0.58rem] uppercase tracking-[0.18em] text-faint">Security research workbench</p>
+          <p className="mt-1 truncate font-mono text-[0.58rem] uppercase tracking-[0.18em] text-faint">Campaign Intelligence</p>
         </div>
       )}
     </div>
@@ -71,21 +73,20 @@ function NavRow({ item, collapsed, onNavigate, featured }: { item: NavItem; coll
 }
 
 function Nav({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: () => void }) {
+  const head = (t: string, first?: boolean) => (collapsed ? (first ? null : <div className="my-3 h-px bg-line" />) : <p className={cn("mb-2 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint", !first && "mt-6")}>{t}</p>);
   return (
-    <nav aria-label="Primary" className="mt-7 flex flex-col gap-0.5">
-      {!collapsed && <p className="mb-2 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Security workbench</p>}
-      {NAV.map((n) => <NavRow key={n.to} item={n} collapsed={collapsed} onNavigate={onNavigate} />)}
-      {!collapsed && <p className="mb-2 mt-6 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Campaigns</p>}
-      {collapsed && <div className="my-3 h-px bg-line" />}
+    <nav aria-label="Primary" className="mt-7 flex flex-col gap-0.5 overflow-y-auto">
+      {head("Campaigns", true)}
       {CAMPAIGN_NAV.map((n) => <NavRow key={n.to} item={n} collapsed={collapsed} onNavigate={onNavigate} />)}
-      {!collapsed && <p className="mb-2 mt-6 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Presentation</p>}
-      {collapsed && <div className="my-3 h-px bg-line" />}
+      {head("Try it")}
       <NavRow item={DEMO_NAV} collapsed={collapsed} onNavigate={onNavigate} featured />
+      {head("Security tools")}
+      {SECURITY_NAV.map((n) => <NavRow key={n.to} item={n} collapsed={collapsed} onNavigate={onNavigate} />)}
     </nav>
   );
 }
 
-const CRUMB: Record<string, string> = { campaigns: "Campaigns", "": "Overview", analyzer: "Analyzer", evidence: "Evidence Explorer", research: "Research Lab", incidents: "Incident History", methodology: "Methodology & Data", demo: "Guided Demo" };
+const CRUMB: Record<string, string> = { campaigns: "Campaigns", "": "Campaign Overview", analyzer: "URL Analyzer", evidence: "Evidence Explorer", research: "Research Lab", incidents: "Incident History", methodology: "Methodology & Data", demo: "Demo Workspace", security: "Security Tools" };
 const readCollapsed = () => { try { return localStorage.getItem("tl.sidebar") === "1"; } catch { return false; } };
 
 export function Layout() {
@@ -96,6 +97,8 @@ export function Layout() {
   const pwa = usePwa();
   useEffect(() => { setOpen(false); window.scrollTo(0, 0); }, [loc.pathname]);
   useEffect(() => { try { localStorage.setItem("tl.sidebar", collapsed ? "1" : "0"); } catch { /* storage unavailable */ } }, [collapsed]);
+  // The UTM workflow needs no backend, so API status UI appears only on the security tools.
+  const security = !(loc.pathname === "/" || loc.pathname.startsWith("/campaigns") || loc.pathname === "/demo");
   const section = CRUMB[loc.pathname.split("/")[1] ?? ""] ?? "—";
 
   return (
@@ -109,7 +112,7 @@ export function Layout() {
             {!collapsed && (
               <div className="rounded-lg border border-line bg-bg/50 p-3">
                 <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Scope</p>
-                <p className="mt-1 text-2xs leading-relaxed text-muted">Research prototype. Outputs are triage hints for human review, not verdicts. URLs are parsed as text and never fetched.</p>
+                <p className="mt-1 text-2xs leading-relaxed text-muted">URLs are parsed as text and never fetched. Campaign data stays in this browser. Security outputs are triage hints for human review, not verdicts.</p>
               </div>
             )}
             <button onClick={() => setCollapsed((c) => !c)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} aria-expanded={!collapsed}
@@ -137,14 +140,14 @@ export function Layout() {
             <p className="hidden min-w-0 items-center gap-2 font-mono text-2xs uppercase tracking-[0.14em] text-faint md:flex">
               <span>ThreatLens</span><span aria-hidden>/</span><span className="truncate text-ink">{section}</span>
             </p>
-            <div className="ml-auto shrink-0"><StatusPill /></div>
+            {security && <div className="ml-auto shrink-0"><StatusPill /></div>}
           </div>
-          {mode === "demo" && <ModeBanner />}
-          <ConnectivityBanner />
+          {security && mode === "demo" && <ModeBanner />}
+          {security && <ConnectivityBanner />}
           <main id="main" className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8"><Outlet /></main>
           <footer className="border-t border-line px-4 py-4 sm:px-6 lg:px-8">
             <p className="mx-auto flex max-w-7xl flex-wrap justify-between gap-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-faint">
-              <span>ThreatLens AI · research prototype{pwa.offlineReady ? " · offline-ready" : ""}{pwa.updateAvailable && <> · <button className="underline" onClick={applyUpdate}>update available: reload</button></>}</span><span>Dataset: PhiUSIIL (Prasad &amp; Chandra, CC BY 4.0)</span>
+              <span>ThreatLens Campaign Intelligence{pwa.offlineReady ? " · offline-ready" : ""}{pwa.updateAvailable && <> · <button className="underline" onClick={applyUpdate}>update available: reload</button></>}</span><span>Dataset: PhiUSIIL (Prasad &amp; Chandra, CC BY 4.0)</span>
             </p>
           </footer>
         </div>

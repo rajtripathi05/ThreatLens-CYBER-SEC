@@ -187,7 +187,7 @@ describe("B. local deterministic mode", () => {
     unmount();
   });
 
-  it.each(["/", "/analyzer", "/evidence", "/research", "/incidents", "/methodology"])("shows the active mode on %s", async (path) => {
+  it.each(["/security", "/analyzer", "/evidence", "/research", "/incidents", "/methodology"])("shows the active mode on %s", async (path) => {
     net.health = "down";
     installNet(net);
     renderAt(path);

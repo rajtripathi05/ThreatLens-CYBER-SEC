@@ -74,7 +74,7 @@ export default function Demo() {
       const t = e.target as HTMLElement | null;
       // Only navigate when focus is not in a form control, so arrows still work inside selects, inputs and radio groups.
       if (t && (t.closest("input, textarea, select, [role=radiogroup], [role=tablist]") || t.isContentEditable)) return;
-      if (e.key === "Escape") nav("/");
+      if (e.key === "Escape") nav("/security");
       else if (e.key === "ArrowRight" && !e.altKey && !e.metaKey) goto(stepRef.current + 1);
       else if (e.key === "ArrowLeft" && !e.altKey && !e.metaKey) goto(stepRef.current - 1);
     };
@@ -94,7 +94,7 @@ export default function Demo() {
           <h1 key={def.id} className="fade-in mt-2 text-2xl font-semibold sm:text-[1.9rem]"><span className="mr-2 font-mono text-base font-medium text-faint">Step {step + 1} of {STEPS.length}:</span>{" "}{def.title}</h1>
           <p className="mt-1 hidden text-2xs text-faint sm:block">Keyboard: <kbd className="rounded border border-line px-1 font-mono">←</kbd> <kbd className="rounded border border-line px-1 font-mono">→</kbd> to move between steps, <kbd className="rounded border border-line px-1 font-mono">Esc</kbd> to exit.</p>
         </div>
-        <Button variant="secondary" size="sm" onClick={() => nav("/")}><X className="h-3.5 w-3.5" aria-hidden />Exit demo</Button>
+        <Button variant="secondary" size="sm" onClick={() => nav("/security")}><X className="h-3.5 w-3.5" aria-hidden />Exit demo</Button>
       </header>
 
       <div className="mb-5" role="progressbar" aria-label="Demo progress" aria-valuemin={1} aria-valuemax={STEPS.length} aria-valuenow={step + 1} aria-valuetext={`Step ${step + 1} of ${STEPS.length}: ${def.title}`}>

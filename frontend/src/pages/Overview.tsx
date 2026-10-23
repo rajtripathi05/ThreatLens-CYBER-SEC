@@ -57,7 +57,7 @@ export default function Overview() {
             Controlled experiments then degrade the intelligence feed on purpose to ask one question: <em className="not-italic text-ink">does a reliability-aware policy hold up when the feed is missing or wrong?</em>
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Link to="/demo" className="inline-flex h-11 items-center gap-2 rounded-lg bg-accent px-5 text-sm font-semibold text-accent-ink shadow-glow transition hover:bg-accent-dim active:translate-y-px"><PlayCircle className="h-4 w-4" aria-hidden />Start Research Demo</Link>
+            <Link to="/security/tour" className="inline-flex h-11 items-center gap-2 rounded-lg bg-accent px-5 text-sm font-semibold text-accent-ink shadow-glow transition hover:bg-accent-dim active:translate-y-px"><PlayCircle className="h-4 w-4" aria-hidden />Start Research Demo</Link>
             <Link to="/analyzer" className="inline-flex h-11 items-center gap-2 rounded-lg border border-line bg-raised/70 px-4 text-sm font-medium transition hover:border-accent/40"><ScanSearch className="h-4 w-4 text-accent" aria-hidden />Analyze a URL</Link>
             <Link to="/evidence" className="inline-flex h-11 items-center gap-2 rounded-lg border border-line bg-raised/70 px-4 text-sm font-medium transition hover:border-accent/40"><ScrollText className="h-4 w-4 text-accent" aria-hidden />Explore Evidence</Link>
             <Link to="/research" className="inline-flex h-11 items-center gap-2 rounded-lg border border-line bg-raised/70 px-4 text-sm font-medium transition hover:border-accent/40"><FlaskConical className="h-4 w-4 text-accent" aria-hidden />Open Research Lab</Link>
@@ -165,7 +165,7 @@ export default function Overview() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <QuickLink to="/evidence" icon={ScrollText} title="Evidence Explorer" text="Ordered ledger of every signal behind the latest decision." />
         <QuickLink to="/incidents" icon={History} title="Incident History" text="Saved cases with PDF and JSON export." />
-        <QuickLink to="/campaigns" icon={Tags} title="Campaign URLs" text="Build and QA UTM-tagged links, separate from phishing analysis." />
+        <QuickLink to="/" icon={Tags} title="Campaign Intelligence" text="Build and QA UTM-tagged links, separate from phishing analysis." />
         <QuickLink to="/methodology" icon={Database} title="Methodology & data" text="Dataset provenance, threat model, limitations, reproduction commands." />
       </div>
     </>

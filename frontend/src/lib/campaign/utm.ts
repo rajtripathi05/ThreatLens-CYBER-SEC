@@ -68,3 +68,12 @@ export function extractUtm(raw: string): { utm: UtmValues; base: string; hasUtmP
 export function missingRequired(values: Partial<UtmValues>): UtmKey[] {
   return REQUIRED_UTM.filter((k) => !(values[k] ?? "").trim());
 }
+
+/** Common starting points. Suggestions only: any value is accepted. */
+export const SUGGESTED_SOURCES = ["google", "linkedin", "facebook", "instagram", "newsletter", "twitter", "youtube", "partner"] as const;
+export const SUGGESTED_MEDIUMS = ["cpc", "social", "email", "referral", "organic", "display", "affiliate"] as const;
+
+/** Lowercases and converts a value to the letters/digits/"_"/"-"/"." convention the naming rules check. */
+export function suggestSlug(v: string): string {
+  return v.trim().toLowerCase().replace(/[\s+]+/g, "_").replace(/[^a-z0-9_.-]/g, "").replace(/_+/g, "_").replace(/^[_.-]+|[_]+$/g, "");
+}

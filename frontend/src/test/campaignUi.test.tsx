@@ -44,6 +44,9 @@ describe("Campaign Intelligence", () => {
     renderAt("/campaigns/intelligence");
     expect(screen.getByText("No campaign URLs yet")).toBeInTheDocument();
     await u.upload(screen.getByTestId("csv-input"), new File([csv], "c.csv", { type: "text/csv" }));
+    expect(await screen.findByTestId("import-preview")).toHaveTextContent("Nothing has been saved yet");
+    expect(campaignStore.list()).toHaveLength(0);
+    await u.click(screen.getByRole("button", { name: /Import 2 rows/ }));
     expect(await screen.findByText(/Imported 2 of 3 rows/)).toBeInTheDocument();
     expect(screen.getByText(/Line 4:/)).toBeInTheDocument();
     const table = screen.getByRole("table");
@@ -65,8 +68,8 @@ describe("Campaign Intelligence", () => {
     expect(await screen.findByText(/No URL column found/)).toBeInTheDocument();
     expect(campaignStore.list()).toHaveLength(0);
   });
-  it("renders the unified overview and keeps existing routes", async () => {
+  it("redirects the old /campaigns route to the campaign overview", async () => {
     renderAt("/campaigns");
-    expect(await screen.findByRole("heading", { level: 1, name: "Unified URL Intelligence" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: /Standardize your UTM links/ })).toBeInTheDocument();
   });
 });

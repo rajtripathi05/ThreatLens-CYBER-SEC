@@ -89,7 +89,7 @@ describe("evidence explorer", () => {
 describe("navigation", () => {
   it("renders every primary route", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("offline")));
-    for (const [path, heading] of [["/", /Phishing triage that shows its evidence/], ["/analyzer", "URL & Email Analyzer"], ["/evidence", "Evidence Explorer"],
+    for (const [path, heading] of [["/security", /Phishing triage that shows its evidence/], ["/analyzer", "URL & Email Analyzer"], ["/evidence", "Evidence Explorer"],
       ["/research", "Research Evaluation Lab"], ["/incidents", "Incident History"], ["/methodology", "Methodology & Data"]] as const) {
       const { unmount } = renderAt(path);
       expect(await screen.findByRole("heading", { level: 1, name: heading })).toBeInTheDocument();

@@ -76,7 +76,7 @@ describe("guided demo", () => {
   it("runs from start to finish on labelled fixtures, then resets", async () => {
     localStorage.setItem("threatlens.mode", "demo");
     stubBundle();
-    renderAt("/demo");
+    renderAt("/security/tour");
     expect(await screen.findByRole("heading", { level: 1, name: /Step 1 of 7: Analyze a URL/ })).toBeInTheDocument();
     expect(await screen.findByText(/Running on bundled demo fixtures/)).toBeInTheDocument();
     expect(await screen.findByText(/has not been validated as an email-body classifier/)).toBeInTheDocument();
@@ -120,7 +120,7 @@ describe("guided demo", () => {
 
   it("does not substitute fixtures when the backend is unreachable in live mode", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
-    renderAt("/demo");
+    renderAt("/security/tour");
     expect(await screen.findByText("Backend not reachable")).toBeInTheDocument();
     expect(screen.queryByTestId("step-analyze")).toBeNull();
     expect(screen.queryByText(/Running on bundled demo fixtures/)).toBeNull();
