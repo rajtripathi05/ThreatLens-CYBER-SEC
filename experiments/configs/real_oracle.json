@@ -1,0 +1,54 @@
+{
+  "name": "real_data_oracle_sim",
+  "data": {
+    "csv": "data/raw/PhiUSIIL_Phishing_URL_Dataset.csv",
+    "synthetic": false,
+    "url_col": "URL",
+    "label_col": "label",
+    "label_scheme": "uci"
+  },
+  "split_seed": 42,
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "max_test_items": 5000,
+  "reference_feed_phishing_coverage": 0.6,
+  "reference_time": "2026-01-01T00:00:00+00:00",
+  "coverage_levels": [
+    1.0,
+    0.75,
+    0.5,
+    0.25
+  ],
+  "false_match_shares": [
+    0.0,
+    0.05,
+    0.1,
+    0.2
+  ],
+  "stale_fractions": [
+    0.25,
+    0.5
+  ],
+  "outage_fractions": [
+    0.25,
+    0.5
+  ],
+  "degraded_scenario": {
+    "coverage": 0.5,
+    "noise": 0.1
+  },
+  "target_recall_for_low_threshold": 0.98,
+  "tradeoff_target_recalls": [
+    0.9,
+    0.95,
+    0.98,
+    0.99,
+    0.995
+  ],
+  "latency_items": 200,
+  "out_dir": "experiments/results/real_data/ti_simulation_oracle",
+  "feed_mode": "oracle_test_labels"
+}

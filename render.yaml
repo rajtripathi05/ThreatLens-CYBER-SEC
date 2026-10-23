@@ -1,0 +1,22 @@
+# Render blueprint for the FastAPI backend (the React frontend is deployed separately on Netlify).
+services:
+  - type: web
+    name: threatlens-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-api.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: THREATLENS_ALLOWED_ORIGINS
+        sync: false            # set to your Netlify origin, e.g. https://your-site.netlify.app
+      - key: THREATLENS_ALLOW_SYNTHETIC_MODEL
+        value: "false"         # production must serve the real model (see docs/DEPLOYMENT.md, model artefact)
+      - key: THREATLENS_ALLOW_RAW_STORAGE
+        value: "false"
+      - key: THREATLENS_DB
+        value: /tmp/cases.db   # EPHEMERAL on the free plan; see docs/DEPLOYMENT.md
+      - key: THREATLENS_INCIDENT_TOKEN
+        generateValue: true

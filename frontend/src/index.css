@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color-scheme: dark; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: "cv11", "ss01";
+    /* Signal Room backdrop: faint measurement grid + two soft light pools. Purely decorative. */
+    background-image:
+      radial-gradient(60rem 30rem at 85% -10%, rgba(45, 212, 191, 0.07), transparent 60%),
+      radial-gradient(40rem 24rem at -10% 110%, rgba(125, 211, 252, 0.05), transparent 60%),
+      linear-gradient(rgba(147, 165, 193, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(147, 165, 193, 0.035) 1px, transparent 1px);
+    background-size: auto, auto, 32px 32px, 32px 32px;
+    background-attachment: fixed;
+  }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  ::selection { background: rgba(45, 212, 191, 0.3); }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-accent; }
+  * { scrollbar-width: thin; scrollbar-color: #1E2C45 transparent; }
+  table { @apply border-collapse; }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-surface/90 shadow-panel;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 40%);
+  }
+  .card-pad { @apply p-4 sm:p-5; }
+  .label { @apply text-2xs font-medium uppercase tracking-[0.12em] text-muted; }
+  /* Technical eyebrow: monospace index + uppercase descriptor. */
+  .eyebrow { @apply inline-flex items-center gap-2 font-mono text-2xs font-medium uppercase tracking-[0.16em] text-accent; }
+  .eyebrow::before { content: ""; @apply inline-block h-px w-5 bg-accent/70; }
+  .field {
+    @apply w-full rounded-md border border-line bg-bg/80 px-3 py-2 text-sm text-ink placeholder:text-faint
+           transition-colors hover:border-faint focus-visible:border-accent disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .th { @apply whitespace-nowrap border-b border-line bg-bg/40 px-3 py-2 text-left text-2xs font-medium uppercase tracking-wider text-muted; }
+  .td { @apply border-b border-line/60 px-3 py-2.5 align-top text-sm; }
+  tbody tr { @apply transition-colors; }
+  tbody tr:hover > .td { @apply bg-raised/40; }
+  /* Hairline trace used to separate editorial sections. */
+  .trace { @apply relative h-px w-full bg-gradient-to-r from-accent/50 via-line to-transparent; }
+  .numeral { @apply font-display font-semibold tabular-nums tracking-tight; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { animation: fade-in 260ms cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+  @keyframes pulse-dot { 50% { opacity: 0.35; } }
+  .grow-x { transform-origin: left; animation: grow-x 700ms cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .stagger > * { animation: fade-in 320ms cubic-bezier(.2,.7,.2,1) both; }
+  .stagger > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger > *:nth-child(4) { animation-delay: 180ms; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* Recharts text/tooltip theming */
+.recharts-default-tooltip { background: #0C1424 !important; border: 1px solid #1E2C45 !important; border-radius: 8px; box-shadow: 0 12px 28px -12px rgba(0,0,0,.7); }
+.recharts-tooltip-label { color: #E8EEF8 !important; }
+.recharts-cartesian-axis-tick-value { fill: #93A5C1; font-size: 11px; }
+.recharts-cartesian-grid line { stroke: #1E2C45; }

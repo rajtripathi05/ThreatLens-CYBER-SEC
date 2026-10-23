@@ -1,0 +1,13 @@
+name,url,what_it_demonstrates
+Fresh TI match + suspicious URL,http://secure-paypal-login.example/verify/a1b2c3,MATCH_FRESH corroborated by the URL model
+Stale TI match,http://old-microsoft-signin.example/auth,MATCH_STALE (observation older than 30 days)
+Expired TI match,http://expired-bank-secure.example/login,MATCH_STALE (entry expired before snapshot)
+No provenance,http://no-provenance-lure.example/pay,MATCH_STALE (missing source/timestamp)
+Fresh TI match vs benign-looking URL,https://maple-books.example/about,Conflict -> human review
+Labelled synthetic noise,http://harmless-demo-bakery.example/menu,SYNTHETIC_MATCH is ignored
+Domain-level indicator,http://evil-cdn-demo.example/payload/x,MATCH_FRESH via domain indicator
+No TI match,https://river-garden.example/news,NO_MATCH is not evidence of safety
+IP literal host,http://203.0.113.45/login/verify,Lexical rule
+Punycode host,http://xn--pple-43d.example/signin,Look-alike host warning
+URL shortener,https://bit.ly/3xAmple,Shortener heuristic
+Malformed,http://[::1/login,Malformed URL handled safely

@@ -1,0 +1,30 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+# raw datasets and uploads
+data/raw/
+data/uploads/
+*.eml
+!tests/fixtures/*.eml
+# local case database (may contain user data)
+data/cases.db
+*.db
+# generated artefacts (re-create with the documented commands)
+models/*.joblib
+models/*.meta.json
+models/dataset_provenance.json
+experiments/results/*
+!experiments/results/.gitkeep
+# frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env*
+!frontend/.env.example
+# real-data runs (regenerate with the documented commands); large archives never committed
+experiments/results/**/_archive/
+experiments/results/**/raw_decisions.csv.gz
+data/raw/
+models/*.joblib

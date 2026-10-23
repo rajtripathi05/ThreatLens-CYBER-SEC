@@ -1,0 +1,16 @@
+{
+  "source": "data\\raw\\PhiUSIIL_Phishing_URL_Dataset.csv",
+  "sha256": "c03cfe13d32a600eb58404f9964c8a3b061b75f705364195d75ff0ef53b712f2",
+  "original_rows": 235795,
+  "original_columns": 55,
+  "url_col": "URL",
+  "label_col": "label",
+  "label_scheme": "uci",
+  "label_note": "UCI PhiUSIIL: 1 = legitimate, 0 = phishing",
+  "dropped_empty_urls": 0,
+  "dropped_conflicting_urls": 0,
+  "dropped_exact_duplicate_rows": 425,
+  "final_rows": 235370,
+  "phishing_rate": 0.4270722691931852,
+  "synthetic": false
+}

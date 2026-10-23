@@ -1,0 +1,11 @@
+# DEMO SNAPSHOT - synthetic, hand-written indicators on reserved .example domains. Not real threat intelligence.
+# collected_at=2026-01-01T00:00:00Z
+indicator,kind,source,observed_at,expires_at,synthetic
+http://secure-paypal-login.example/verify/a1b2c3,url,DEMO-FEED,2025-12-20T00:00:00Z,,false
+http://dhl-parcel-update.example/track/zx81,url,DEMO-FEED,2025-12-28T00:00:00Z,,false
+http://old-microsoft-signin.example/auth,url,DEMO-FEED,2025-09-01T00:00:00Z,,false
+http://expired-bank-secure.example/login,url,DEMO-FEED,2025-12-25T00:00:00Z,2025-12-30T00:00:00Z,false
+http://no-provenance-lure.example/pay,url,,,,false
+https://maple-books.example/about,url,DEMO-FEED,2025-12-30T00:00:00Z,,false
+http://harmless-demo-bakery.example/menu,url,DEMO-NOISE-INJECTION,2025-12-29T00:00:00Z,,true
+evil-cdn-demo.example,domain,DEMO-FEED,2025-12-27T00:00:00Z,,false

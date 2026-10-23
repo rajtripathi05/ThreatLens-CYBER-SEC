@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Demo 1 - lure with fresh TI match (SYNTHETIC)",
+    "eml": "From: \"Account Security\" <alerts@secure-mail.example>\r\nReply-To: helpdesk@different-domain.example\r\nTo: student@university.example\r\nSubject: Urgent: verify your account immediately\r\nDate: Thu, 01 Jan 2026 09:00:00 +0000\r\nMessage-ID: <demo1@example>\r\nAuthentication-Results: mx.example; spf=pass; dkim=none\r\nMIME-Version: 1.0\r\nContent-Type: multipart/alternative; boundary=\"b1\"\r\n\r\n--b1\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nYour account is suspended. Verify your account within 24 hours:\r\nhttp://secure-paypal-login.example/verify/a1b2c3\r\n--b1\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<p>Click <a href=\"http://secure-paypal-login.example/verify/a1b2c3\">https://www.paypal.com/myaccount</a></p>\r\n--b1--\r\n"
+  },
+  {
+    "name": "Demo 2 - routine newsletter, no TI match (SYNTHETIC)",
+    "eml": "From: News <news@river-garden.example>\r\nTo: student@university.example\r\nSubject: Weekly digest\r\nDate: Thu, 01 Jan 2026 10:00:00 +0000\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nRead more at https://river-garden.example/news and https://cedar-clinic.example/about\r\n"
+  },
+  {
+    "name": "Demo 3 - stale indicator and shortener (SYNTHETIC)",
+    "eml": "From: billing@invoices.example\r\nSubject: Invoice attached\r\nDate: Thu, 01 Jan 2026 11:00:00 +0000\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nSee hxxp://old-microsoft-signin[.]example/auth or https://bit.ly/3xAmple\r\n"
+  }
+]
