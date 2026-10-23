@@ -1,4 +1,4 @@
-import { BookOpenText, ChevronsLeft, ChevronsRight, FlaskConical, History, LayoutDashboard, Menu, PlayCircle, ScanSearch, ScrollText, X, type LucideIcon } from "lucide-react";
+import { BookOpenText, ChevronsLeft, ChevronsRight, FlaskConical, History, LayoutDashboard, Link2, Menu, PlayCircle, ScanSearch, ScrollText, Tags, Table2, X, type LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Button, Tip, TooltipProvider } from "@/components/ui/primitives";
@@ -17,6 +17,11 @@ const NAV: NavItem[] = [
   { to: "/research", label: "Research Lab", icon: FlaskConical, code: "04" },
   { to: "/incidents", label: "Incident History", icon: History, code: "05" },
   { to: "/methodology", label: "Methodology & Data", icon: BookOpenText, code: "06" },
+];
+const CAMPAIGN_NAV: NavItem[] = [
+  { to: "/campaigns", label: "Unified Overview", icon: Tags, end: true, code: "C1" },
+  { to: "/campaigns/studio", label: "URL Studio", icon: Link2, code: "C2" },
+  { to: "/campaigns/intelligence", label: "Campaign Intelligence", icon: Table2, code: "C3" },
 ];
 const DEMO_NAV: NavItem = { to: "/demo", label: "Guided Demo", icon: PlayCircle, code: "▶" };
 
@@ -68,8 +73,11 @@ function NavRow({ item, collapsed, onNavigate, featured }: { item: NavItem; coll
 function Nav({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: () => void }) {
   return (
     <nav aria-label="Primary" className="mt-7 flex flex-col gap-0.5">
-      {!collapsed && <p className="mb-2 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Workbench</p>}
+      {!collapsed && <p className="mb-2 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Security workbench</p>}
       {NAV.map((n) => <NavRow key={n.to} item={n} collapsed={collapsed} onNavigate={onNavigate} />)}
+      {!collapsed && <p className="mb-2 mt-6 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Campaigns</p>}
+      {collapsed && <div className="my-3 h-px bg-line" />}
+      {CAMPAIGN_NAV.map((n) => <NavRow key={n.to} item={n} collapsed={collapsed} onNavigate={onNavigate} />)}
       {!collapsed && <p className="mb-2 mt-6 px-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-faint">Presentation</p>}
       {collapsed && <div className="my-3 h-px bg-line" />}
       <NavRow item={DEMO_NAV} collapsed={collapsed} onNavigate={onNavigate} featured />
@@ -77,7 +85,7 @@ function Nav({ collapsed, onNavigate }: { collapsed?: boolean; onNavigate?: () =
   );
 }
 
-const CRUMB: Record<string, string> = { "": "Overview", analyzer: "Analyzer", evidence: "Evidence Explorer", research: "Research Lab", incidents: "Incident History", methodology: "Methodology & Data", demo: "Guided Demo" };
+const CRUMB: Record<string, string> = { campaigns: "Campaigns", "": "Overview", analyzer: "Analyzer", evidence: "Evidence Explorer", research: "Research Lab", incidents: "Incident History", methodology: "Methodology & Data", demo: "Guided Demo" };
 const readCollapsed = () => { try { return localStorage.getItem("tl.sidebar") === "1"; } catch { return false; } };
 
 export function Layout() {

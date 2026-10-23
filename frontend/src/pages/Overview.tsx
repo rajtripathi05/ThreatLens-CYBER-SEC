@@ -1,4 +1,4 @@
-import { ArrowRight, Database, FlaskConical, History, PlayCircle, ScanSearch, ScrollText, Server, ShieldCheck, Waypoints } from "lucide-react";
+import { ArrowRight, Database, FlaskConical, History, PlayCircle, ScanSearch, ScrollText, Server, ShieldCheck, Tags, Waypoints } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { DecisionBadge, SourceBadge } from "@/components/badges";
@@ -162,9 +162,10 @@ export default function Overview() {
         </Card>
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <QuickLink to="/evidence" icon={ScrollText} title="Evidence Explorer" text="Ordered ledger of every signal behind the latest decision." />
         <QuickLink to="/incidents" icon={History} title="Incident History" text="Saved cases with PDF and JSON export." />
+        <QuickLink to="/campaigns" icon={Tags} title="Campaign URLs" text="Build and QA UTM-tagged links, separate from phishing analysis." />
         <QuickLink to="/methodology" icon={Database} title="Methodology & data" text="Dataset provenance, threat model, limitations, reproduction commands." />
       </div>
     </>

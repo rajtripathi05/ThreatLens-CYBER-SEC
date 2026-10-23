@@ -20,7 +20,8 @@ const SAMPLE_URLS = ["http://secure-paypal-login.example/verify/a1b2c3", "https:
 export default function Analyzer() {
   const { mode, apiState, effectiveMode, status, analysis, setAnalysis, localAnalysis, setLocalAnalysis, getLocalConfig, reportBackendFailure } = useApp();
   const [kind, setKind] = useState<InputKind>("url");
-  const [url, setUrl] = useState("");
+  // A campaign record can hand a URL over via ?url=. It only prefills the field; analysis still needs an explicit click.
+  const [url, setUrl] = useState(() => (new URLSearchParams(window.location.search).get("url") ?? "").replace(/[\u0000-\u001f\u007f]/g, "").slice(0, 4096));
   const [body, setBody] = useState("");
   const [eml, setEml] = useState<{ name: string; text: string } | null>(null);
   const [useTI, setUseTI] = useState(true);

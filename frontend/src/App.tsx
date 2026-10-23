@@ -9,6 +9,9 @@ import Incidents from "@/pages/Incidents";
 import Methodology from "@/pages/Methodology";
 import Demo from "@/pages/Demo";
 import NotFound from "@/pages/NotFound";
+import CampaignHub from "@/pages/campaigns/CampaignHub";
+import CampaignStudio from "@/pages/campaigns/CampaignStudio";
+import CampaignIntelligence from "@/pages/campaigns/CampaignIntelligence";
 
 // Recharts is heavy: load the Research Lab on demand.
 const Research = lazy(() => import("@/pages/Research"));
@@ -18,6 +21,9 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Overview />} />
+        <Route path="campaigns" element={<CampaignHub />} />
+        <Route path="campaigns/studio" element={<CampaignStudio />} />
+        <Route path="campaigns/intelligence" element={<CampaignIntelligence />} />
         <Route path="demo" element={<Demo />} />
         <Route path="analyzer" element={<Analyzer />} />
         <Route path="evidence" element={<Evidence />} />

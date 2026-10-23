@@ -44,3 +44,27 @@ Local check: `npm --prefix frontend run build` then `npx vite preview`.
 
 ### Offline / PWA notes (Netlify)
 `netlify.toml` also sets `Cache-Control: no-cache` on `/sw.js` and `/manifest.webmanifest` (so updates roll out) and long-lived immutable caching on `/assets/*`. The build stamps `dist/sw.js` with a content-hash cache version, so every deploy with changed assets produces a new cache and an "update available" prompt in the footer. After the first online visit the site reopens offline and falls back to the browser-local rule engine when the API is down; it cannot be opened for the first time offline. See `docs/LOCAL_MODE.md`.
+
+## 3. Release reference (frontend)
+
+| Item | Value |
+|---|---|
+| Prerequisites | Node 20, npm |
+| Base directory | `frontend` |
+| Build command | `npm ci && npm run build` (runs `tsc -b && vite build`) |
+| Publish directory | `dist` (relative to the base, i.e. `frontend/dist`) |
+| Local dev | `cd frontend && npm ci && npm run dev` |
+| Tests / typecheck | `npm test` · `npm run typecheck` |
+| Environment variables | `VITE_API_BASE_URL` only (public; no secrets). Optional: unset means the app uses local rules mode. |
+
+**Routing.** `/*` → `/index.html` (200) is the SPA fallback, so `/`, `/campaigns`, `/campaigns/studio`, `/campaigns/intelligence`, `/analyzer`, `/evidence`, `/research`, `/incidents[/:id]`, `/methodology` and `/demo` survive a refresh. Netlify serves real files first, and `/assets/*` has an explicit 404 rule so a missing hashed asset is never answered with HTML.
+
+**GitHub → Netlify.** Push to the production branch (`main`); Netlify builds from `netlify.toml`. Manual alternative: `npm run build` in `frontend`, then `npx netlify-cli deploy --prod --dir=dist` (requires your own Netlify login).
+
+**Verify a deployment.** Open each route above directly (not via navigation) and refresh; check the browser console for errors; in Campaigns, build a URL in Studio, copy it, save it, and confirm it appears in Campaign Intelligence after a refresh; open "Open in Analyzer" and confirm the URL is prefilled but **not** analysed until you press Analyze.
+
+**Current limitations.**
+- Campaign records live in this browser's `localStorage` (max 5,000). They are not synced across devices, are not a backup, and disappear if site data is cleared. Export CSVs to keep them.
+- There is no campaign analytics: no clicks, conversions, revenue or traffic. Campaign quality (tagging hygiene) is separate from, and says nothing about, URL safety.
+- No authentication, cloud sync or live threat-intelligence feeds are part of the frontend deployment. The security Analyzer needs the separately hosted API for ML mode; otherwise it runs the labelled local rule engine.
+- `npm audit` reports dev-tooling advisories (vitest/vite chain) and a moderate `react-router` advisory whose fix is the breaking v7 upgrade; the affected paths (SSR hydration, backslash redirect through user-controlled link targets) are not used by this client-only app. Revisit with a planned router upgrade.
